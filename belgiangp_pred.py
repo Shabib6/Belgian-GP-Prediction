@@ -59,18 +59,30 @@ driver_wet_performance = {
     "STR": 0.971800,  "GAS": 0.979000,  "ALO": 0.972655,
     "HUL": 0.980000
 }
+standings = pd.DataFrame({
+    "Driver": ["PIA","NOR","VER","RUS","LEC","HAM","ANT","ALB","HUL","OCO","STR","GAS","ALO","SAI"],
+    "ChampionshipPoints": [241,232,173,147,124,103,63,46,37,27,20,19,16,16]
+})
 
 df = qualifying_2025.copy()
 df["CleanAirRacePace (s)"] = df["Driver"].map(clean_air_race_pace)
 df["WetPerformanceFactor"] = df["Driver"].map(driver_wet_performance)
 df["AdjustedRacePace"] = df["CleanAirRacePace (s)"] * df["WetPerformanceFactor"]
 df["QualiVsRaceRatio"] = df["QualifyingTime (s)"] / df["AdjustedRacePace"]
+df = df.merge(standings, on="Driver", how="left")
 
 
 df["Winner"] = df["Driver"].apply(lambda x: 1 if x == "VER" else 0)
 
 
-X = df[["CleanAirRacePace (s)", "WetPerformanceFactor", "AdjustedRacePace", "QualiVsRaceRatio"]]
+X = df[[
+  "CleanAirRacePace (s)",
+  "WetPerformanceFactor",
+  "AdjustedRacePace",
+  "QualiVsRaceRatio",
+  "ChampionshipPoints"
+]]
+
 y = df["Winner"]
 
 # Train-Test Split
