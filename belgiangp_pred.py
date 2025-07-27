@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.ensemble import GradientBoostingClassifier
 # from sklearn.model_selection import train_test_split
 from sklearn.calibration import CalibratedClassifierCV
+import matplotlib.pyplot as plt
 
 fastf1.Cache.enable_cache("f1_cache")
 
@@ -132,3 +133,19 @@ for i, row in enumerate(df_sorted.itertuples(), start=1):
     bar = text_bar(row.WinProbability)
     print(f"{i:>2}. {row.Driver:<15} | {bar} {row.WinProbability:5.2f}%")
 print("-" * 55)
+
+df_sorted = df.sort_values("WinProbability", ascending=True)
+plt.figure(figsize=(10, 6))
+bars = plt.barh(df_sorted["Driver"], df_sorted["WinProbability"], color='#1f77b4')
+
+for bar in bars:
+    plt.text(bar.get_width() + 0.5, bar.get_y() + bar.get_height() / 2,
+             f'{bar.get_width():.2f}%', va='center', fontsize=10)
+
+plt.xlabel('Win Probability (%)')
+plt.title('Predicted F1 Belgian GP Standings — by Shabib')
+plt.xlim(0, max(df_sorted["WinProbability"]) + 10)
+plt.grid(axis='x', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.savefig("f1_prediction_bargraph.png", dpi=300)
+plt.show()
