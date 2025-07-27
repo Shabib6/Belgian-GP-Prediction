@@ -2,7 +2,7 @@ import fastf1
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.model_selection import train_test_split
+# from sklearn.model_selection import train_test_split
 from sklearn.calibration import CalibratedClassifierCV
 
 fastf1.Cache.enable_cache("f1_cache")
@@ -108,5 +108,16 @@ def add_uncertainty(probs, is_rain=True, safety_car_chance=0.05):
 adjusted_probs = add_uncertainty(calibrated_probs, is_rain=True)
 df["WinProbability"] = adjusted_probs
 
+def text_bar(p, length=25):
+    bar_len = int(p / 100 * length)
+    return "█" * bar_len + "-" * (length - bar_len)
+
+df["WinProbability"] = df["WinProbability"] * 100
 df_sorted = df.sort_values("WinProbability", ascending=False)
-print(df_sorted[["Driver", "WinProbability"]])
+
+print("🏁 Predicted F1 Race Standings 🏁")
+print("-" * 55)
+for i, row in enumerate(df_sorted.itertuples(), start=1):
+    bar = text_bar(row.WinProbability)
+    print(f"{i:>2}. {row.Driver:<15} | {bar} {row.WinProbability:5.2f}%")
+print("-" * 55)
