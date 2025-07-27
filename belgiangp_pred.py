@@ -7,7 +7,6 @@ from sklearn.calibration import CalibratedClassifierCV
 
 fastf1.Cache.enable_cache("f1_cache")
 
-
 session_2024 = fastf1.get_session(2024, 8, "R")
 session_2024.load()
 laps_2024 = session_2024.laps[["Driver", "LapTime", "Sector1Time", "Sector2Time", "Sector3Time"]].copy()
