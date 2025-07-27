@@ -34,11 +34,22 @@ These inputs were used in a **Platt-scaled Gradient Boosting Classifier** to pre
 ## 🏎️ Prediction Summary
 
 - **🏆 1st Place: Max Verstappen**  
-  Based on rain experience + Spa track dominance  
-- **🥈 & 🥉: McLaren Drivers (Norris & Piastri)**  
-  Sector consistency + qualifying pace
+  Backed by rain experience and consistent dominance at Spa.  
+  Holds a strong **27.53%** win probability.
 
-The model accounts for **rain variability** using a probabilistic adjustment to reduce confidence on uncertain driver outcomes.
+- **🥈 Charles Leclerc & 🥉 Lando Norris**  
+  Leclerc edges into second with **14.37%**, followed closely by Norris at **13.67%**, both showing strong qualifying pace.
+
+- **Top 5 Finishers:**  
+  Gasly and Stroll round out the top 5, showing model confidence in midfield upsets due to wet conditions.
+
+- **Notable Mentions:**  
+  - **Albon & Hamilton** show solid mid-grid potential.  
+  - **Oscar Piastri** predicted lower than expected, possibly due to limited wet race data.  
+  - **Zero-probability predictions** for Ocon and Hulkenberg suggest near-zero statistical backing under current conditions.
+
+> The model factors **rain variability** through a probabilistic adjustment, lowering confidence in uncertain or less-experienced drivers.
+
 
 ---
 
